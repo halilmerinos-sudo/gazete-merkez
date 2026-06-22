@@ -1,0 +1,1884 @@
+ <!DOCTYPE html>
+
+<html lang="tr" data-theme="dark">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<title>Gazete Merkezi — 81 İl</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+
+--bg: #0a0a0f;
+
+--bg2: #111118;
+
+--surface: rgba(255,255,255,0.05);
+
+--surface2: rgba(255,255,255,0.08);
+
+--border: rgba(255,255,255,0.10);
+
+--border2: rgba(255,255,255,0.18);
+
+--text: #f0f0f8;
+
+--text2: rgba(240,240,248,0.55);
+
+--accent: #e8c84a;
+
+--accent2: #ff6b4a;
+
+--accent3: #4af0c8;
+
+--accent4: #a14af0;
+
+--red: #ff4444;
+
+--header-h: 130px;
+
+--radius: 18px;
+
+--radius-sm: 12px;
+
+}
+
+[data-theme="light"] {
+
+--bg: #f0eff5;
+
+--bg2: #e8e7ee;
+
+--surface: rgba(255,255,255,0.7);
+
+--surface2: rgba(255,255,255,0.9);
+
+--border: rgba(0,0,0,0.08);
+
+--border2: rgba(0,0,0,0.15);
+
+--text: #0a0a14;
+
+--text2: rgba(10,10,20,0.5);
+
+}
+
+
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+
+font-family:'DM Sans',sans-serif;
+
+background:var(--bg);
+
+color:var(--text);
+
+overflow-x:hidden;
+
+padding-top:var(--header-h);
+
+min-height:100vh;
+
+}
+
+
+
+body::before{
+
+content:'';
+
+position:fixed;
+
+inset:0;
+
+background:
+
+radial-gradient(ellipse 60% 40% at 20% 10%, rgba(232,200,74,0.06) 0%, transparent 60%),
+
+radial-gradient(ellipse 50% 50% at 80% 80%, rgba(74,240,200,0.04) 0%, transparent 60%),
+
+radial-gradient(ellipse 40% 60% at 60% 30%, rgba(255,107,74,0.03) 0%, transparent 60%);
+
+pointer-events:none;
+
+z-index:0;
+
+}
+
+
+
+/* ─── GİZLİ RADYO ALANI (IPHONE SES MOTORU) ─── */
+
+#background-radio-engine {
+
+position: fixed;
+
+top: 0;
+
+left: 0;
+
+width: 1px;
+
+height: 1px;
+
+opacity: 0.01;
+
+pointer-events: none;
+
+z-index: -9999;
+
+border: none;
+
+}
+
+
+
+.radio-status-btn {
+
+background: linear-gradient(90deg, #ff4444, #cc2222) !important;
+
+color: #fff !important;
+
+font-size: 11px !important;
+
+font-weight: bold;
+
+padding: 6px 12px;
+
+border-radius: 8px;
+
+display: none;
+
+align-items: center;
+
+gap: 5px;
+
+border: none;
+
+cursor: pointer;
+
+}
+
+
+
+/* ─── FIXED HEADER ─── */
+
+.fixed-header{
+
+position:fixed;top:0;left:0;right:0;
+
+z-index:9999;
+
+height:var(--header-h);
+
+background:rgba(10,10,15,0.82);
+
+backdrop-filter:blur(24px) saturate(180%);
+
+-webkit-backdrop-filter:blur(24px) saturate(180%);
+
+border-bottom:1px solid var(--border2);
+
+padding: env(safe-area-inset-top,0) 20px 0;
+
+display:flex;flex-direction:column;justify-content:center;gap:10px;
+
+}
+
+[data-theme="light"] .fixed-header{background:rgba(240,239,245,0.88);}
+
+
+
+.header-top{
+
+display:flex;justify-content:space-between;align-items:center;
+
+}
+
+.brand{
+
+display:flex;align-items:baseline;gap:10px;
+
+}
+
+.brand-title{
+
+font-family:'Bebas Neue',sans-serif;
+
+font-size:26px;letter-spacing:2px;
+
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+
+}
+
+.brand-sub{
+
+font-size:10px;font-weight:600;letter-spacing:3px;
+
+color:var(--text2);text-transform:uppercase;
+
+}
+
+
+
+.header-controls{display:flex;align-items:center;gap:10px;}
+
+
+
+.clock-box{text-align:right;}
+
+#hdr-time{
+
+font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;
+
+color:var(--accent);line-height:1;
+
+}
+
+#hdr-date{font-size:10px;color:var(--text2);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+
+
+
+.icon-btn{
+
+width:40px;height:40px;border-radius:50%;
+
+background:var(--surface2);
+
+border:1px solid var(--border2);
+
+display:flex;align-items:center;justify-content:center;
+
+cursor:pointer;font-size:18px;
+
+transition:all .2s;
+
+color:var(--text);
+
+}
+
+.icon-btn:hover{background:var(--border2);transform:scale(1.08);}
+
+.icon-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+
+
+.header-search{
+
+position:relative;flex:1;max-width:340px;
+
+}
+
+.header-search input{
+
+width:100%;
+
+background:var(--surface);
+
+border:1px solid var(--border2);
+
+border-radius:10px;
+
+padding:9px 12px 9px 36px;
+
+font-size:13px;font-family:'DM Sans',sans-serif;
+
+color:var(--text);outline:none;
+
+transition:all .2s;
+
+}
+
+.header-search input:focus{border-color:var(--accent);background:var(--surface2);}
+
+.header-search input::placeholder{color:var(--text2);}
+
+.header-search .s-icon{
+
+position:absolute;left:10px;top:50%;transform:translateY(-50%);
+
+opacity:.5;pointer-events:none;
+
+}
+
+.header-search .s-icon svg{width:15px;height:15px;fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;}
+
+
+
+.close-bar{
+
+display:none;
+
+animation:slideDown .25s ease;
+
+}
+
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+
+.close-bar button{
+
+width:100%;padding:10px;
+
+background:linear-gradient(90deg,var(--red),#cc2222);
+
+color:#fff;border:none;border-radius:var(--radius-sm);
+
+font-weight:700;font-size:13px;letter-spacing:.5px;
+
+cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+
+transition:opacity .2s;
+
+}
+
+.close-bar button:active{opacity:.8;}
+
+
+
+/* ─── MAIN LAYOUT ─── */
+
+.container{
+
+position:relative;z-index:1;
+
+max-width:900px;margin:0 auto;
+
+padding:24px 16px 40px;
+
+}
+
+
+
+.stats-row{
+
+display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+
+margin-bottom:4px;
+
+animation:fadeUp .3s ease both;
+
+}
+
+@media(max-width:500px){
+
+.stats-row{grid-template-columns:repeat(2,1fr); gap:8px;}
+
+}
+
+.stat-card{
+
+background:var(--surface);border:1px solid var(--border);
+
+border-radius:var(--radius-sm);padding:14px 12px;text-align:center;
+
+}
+
+.stat-num{
+
+font-family:'Bebas Neue',sans-serif;font-size:28px;
+
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+
+line-height:1;
+
+}
+
+.stat-lbl{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-top:3px;}
+
+
+
+.section-head{
+
+display:flex;align-items:center;gap:12px;
+
+margin:28px 0 16px;
+
+animation:fadeUp .4s ease both;
+
+}
+
+.section-head .pill{
+
+font-family:'Bebas Neue',sans-serif;
+
+font-size:11px;letter-spacing:3px;
+
+padding:4px 10px;border-radius:20px;
+
+background:var(--accent);color:#0a0a0f;
+
+}
+
+.section-head h2{
+
+font-family:'Bebas Neue',sans-serif;
+
+font-size:20px;letter-spacing:2px;color:var(--text);
+
+}
+
+.section-head .line{flex:1;height:1px;background:var(--border);}
+
+
+
+.national-grid, .internet-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:12px;
+
+}
+
+@media(max-width:600px){
+
+.national-grid, .internet-grid{grid-template-columns:repeat(2,1fr);}
+
+}
+
+
+
+/* ─── NEWSPAPER & RADIO CARD ─── */
+
+.news-card{
+
+position:relative;overflow:hidden;
+
+border-radius:var(--radius);
+
+padding:20px 12px 16px;
+
+display:flex;flex-direction:column;align-items:center;gap:11px;
+
+cursor:pointer;
+
+border:1px solid rgba(255,255,255,0.06);
+
+transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+
+animation:fadeUp .35s ease both;
+
+}
+
+.news-card::before{
+
+content:'';position:absolute;inset:0;
+
+background:inherit;filter:blur(0);
+
+transition:filter .3s;
+
+}
+
+.news-card:hover{
+
+transform:translateY(-4px) scale(1.02);
+
+box-shadow:0 16px 40px rgba(0,0,0,0.4);
+
+border-color:rgba(255,255,255,0.18);
+
+}
+
+.news-card:active{transform:scale(0.96);}
+
+
+
+.card-logo{
+
+width:52px;height:52px;
+
+background:rgba(255,255,255,0.92);
+
+border-radius:14px;
+
+display:flex;align-items:center;justify-content:center;
+
+font-size:22px;font-weight:900;
+
+box-shadow:0 4px 14px rgba(0,0,0,0.25);
+
+flex-shrink:0;overflow:hidden;
+
+transition:transform .2s;
+
+position:relative;z-index:1;
+
+}
+
+.news-card:hover .card-logo{transform:scale(1.08);}
+
+
+
+.card-name{
+
+font-size:13px;font-weight:700;
+
+color:#fff;text-align:center;
+
+line-height:1.2;letter-spacing:.2px;
+
+position:relative;z-index:1;
+
+text-shadow:0 1px 4px rgba(0,0,0,0.4);
+
+}
+
+
+
+/* GRADYAN RENKLER */
+
+.hurriyet {background:linear-gradient(145deg,#d32f2f,#8b0000);}
+
+.sozcu {background:linear-gradient(145deg,#e53935,#b71c1c);}
+
+.milliyet {background:linear-gradient(145deg,#1565c0,#0d2b6e);}
+
+.sabah {background:linear-gradient(145deg,#f57c00,#bf360c);}
+
+.cumhuriyet {background:linear-gradient(145deg,#9e1515,#5c0000);}
+
+.haberturk {background:linear-gradient(145deg,#37474f,#0d1b2a);}
+
+.posta {background:linear-gradient(145deg,#e64a19,#7b1c00);}
+
+.turkiye {background:linear-gradient(145deg,#c2185b,#6a0f35);}
+
+.aksam {background:linear-gradient(145deg,#0277bd,#01347a);}
+
+.yenisafak {background:linear-gradient(145deg,#2e7d32,#0d3b0f);}
+
+.karar {background:linear-gradient(145deg,#455a64,#1c2b33);}
+
+.birgun {background:linear-gradient(145deg,#7b1fa2,#3d0060);}
+
+
+
+.sondakika {background:linear-gradient(145deg,#cc0000,#7a0000);}
+
+.ensonhaber {background:linear-gradient(145deg,#ff3d00,#b22a00);}
+
+.ntv {background:linear-gradient(145deg,#00838f,#005662);}
+
+.cnnturk {background:linear-gradient(145deg,#d50000,#8e0000);}
+
+.t24 {background:linear-gradient(145deg,#212121,#000000);}
+
+.odatv {background:linear-gradient(145deg,#ff8f00,#c56000);}
+
+.internethbr {background:linear-gradient(145deg,#283593,#1a237e);}
+
+.gazeteduvar {background:linear-gradient(145deg,#4e342e,#37221e);}
+
+.indyturk {background:linear-gradient(145deg,#37474f,#21272a);}
+
+.halktv {background:linear-gradient(145deg,#0277bd,#005691);}
+
+.sozcutv {background:linear-gradient(145deg,#e53935,#7f0000);}
+
+
+
+/* ÖZEL RADYO KARTI STİLİ */
+
+.babaradyo {
+
+background: linear-gradient(145deg,#5011a8,#1f5ec2);
+
+border: 2px solid var(--accent) !important;
+
+}
+
+
+
+.yerel-a {background:linear-gradient(145deg,#00796b,#003533);}
+
+.yerel-b {background:linear-gradient(145deg,#e64a19,#5d1a00);}
+
+.yerel-c {background:linear-gradient(145deg,#5e35b1,#260d54);}
+
+.yerel-d {background:linear-gradient(145deg,#1565c0,#062354);}
+
+
+
+.city-panel{
+
+background:var(--surface);
+
+border:1px solid var(--border2);
+
+border-radius:var(--radius);
+
+padding:20px;
+
+animation:fadeUp .4s ease both;
+
+}
+
+.city-panel label{
+
+font-size:11px;font-weight:700;letter-spacing:2px;
+
+text-transform:uppercase;color:var(--accent);
+
+display:block;margin-bottom:12px;
+
+}
+
+.city-select-wrap{position:relative;}
+
+.city-select-wrap svg{
+
+position:absolute;right:14px;top:50%;transform:translateY(-50%);
+
+pointer-events:none;fill:none;stroke:var(--accent);stroke-width:2;
+
+stroke-linecap:round;width:16px;height:16px;
+
+}
+
+.city-select{
+
+width:100%;
+
+background:var(--bg2);
+
+border:2px solid var(--border2);
+
+border-radius:var(--radius-sm);
+
+padding:14px 44px 14px 16px;
+
+font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;
+
+color:var(--text);outline:none;
+
+-webkit-appearance:none;appearance:none;
+
+transition:border-color .2s;cursor:pointer;
+
+}
+
+.city-select:focus{border-color:var(--accent);}
+
+.city-select option{background:var(--bg2);}
+
+
+
+.local-grid{
+
+display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+
+margin-top:14px;
+
+}
+
+@media(max-width:400px){.local-grid{grid-template-columns:1fr;}}
+
+
+
+.empty-state{
+
+grid-column:span 2;text-align:center;
+
+padding:32px 20px;font-size:13px;color:var(--text2);
+
+font-style:italic;
+
+}
+
+.empty-state .e-icon{font-size:36px;display:block;margin-bottom:8px;opacity:.4;}
+
+
+
+.local-grid .news-card{padding:22px 14px 18px;}
+
+.local-grid .card-logo{width:58px;height:58px;font-size:26px;border-radius:16px;}
+
+.local-grid .card-name{font-size:14px;}
+
+
+
+#search-results{
+
+display:none;
+
+animation:fadeUp .3s ease both;
+
+}
+
+#search-results .results-count{
+
+font-size:11px;font-weight:600;letter-spacing:1px;
+
+text-transform:uppercase;color:var(--text2);
+
+margin-bottom:12px;
+
+}
+
+#search-results .search-grid{
+
+display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+
+}
+
+@media(min-width:500px){#search-results .search-grid{grid-template-columns:repeat(3,1fr);}}
+
+
+
+#browser-wrap{
+
+display:none;
+
+position:fixed;
+
+top:var(--header-h);left:0;right:0;
+
+bottom:0;z-index:9998;
+
+background:var(--bg);
+
+animation:fadeIn .2s ease;
+
+}
+
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+#news-iframe{
+
+width:100%;height:100%;border:none;
+
+}
+
+
+
+.ticker-wrap{
+
+overflow:hidden;
+
+background:var(--accent);
+
+padding:6px 0;
+
+position:relative;
+
+}
+
+.ticker-inner{
+
+display:flex;white-space:nowrap;
+
+animation:ticker 30s linear infinite;
+
+will-change:transform;
+
+}
+
+.ticker-inner:hover{animation-play-state:paused;}
+
+.ticker-item{
+
+display:inline-flex;align-items:center;gap:10px;
+
+padding:0 28px;font-size:11px;font-weight:700;
+
+letter-spacing:1.5px;text-transform:uppercase;color:#0a0a0f;
+
+}
+
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:#0a0a0f;opacity:.4;}
+
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+
+
+@keyframes fadeUp{
+
+from{opacity:0;transform:translateY(16px);}
+
+to{opacity:1;transform:translateY(0);}
+
+}
+
+.stagger-1{animation-delay:.05s;}
+
+.stagger-2{animation-delay:.10s;}
+
+.stagger-3{animation-delay:.15s;}
+
+.stagger-4{animation-delay:.20s;}
+
+.stagger-5{animation-delay:.25s;}
+
+.stagger-6{animation-delay:.30s;}
+
+.stagger-7{animation-delay:.35s;}
+
+.stagger-8{animation-delay:.40s;}
+
+.stagger-9{animation-delay:.45s;}
+
+.stagger-10{animation-delay:.50s;}
+
+.stagger-11{animation-delay:.55s;}
+
+.stagger-12{animation-delay:.60s;}
+
+
+
+::-webkit-scrollbar{width:5px;}
+
+::-webkit-scrollbar-track{background:transparent;}
+
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px;}
+
+
+
+.no-results{
+
+text-align:center;padding:40px 20px;color:var(--text2);
+
+font-size:14px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<!-- GİZLİ SES MOTORU -->
+
+<iframe id="background-radio-engine" src="" allow="autoplay"></iframe>
+
+
+
+<!-- ══ FIXED HEADER ══ -->
+
+<header class="fixed-header">
+
+<div class="header-top">
+
+<div class="brand">
+
+<span class="brand-title">GAZETEMERKEZİ</span>
+
+<span class="brand-sub">81 İl & İnternet</span>
+
+</div>
+
+<div class="header-controls">
+
+<!-- Radyo Kapatma Düğmesi -->
+
+<button id="radio-stop-control" class="radio-status-btn" onclick="stopRadio()">
+
+<span>🛑 Radyoyu Sustur</span>
+
+</button>
+
+<div class="clock-box">
+
+<div id="hdr-time">00:00</div>
+
+<div id="hdr-date">yükleniyor</div>
+
+</div>
+
+<button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Tema">
+
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<div style="display:flex;gap:10px;align-items:center;">
+
+<div class="header-search" style="flex:1;">
+
+<span class="s-icon">
+
+<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+
+</span>
+
+<input type="text" id="search-input" placeholder="Gazete, kanal veya şehir ara…" oninput="handleSearch(this.value)" autocomplete="off">
+
+</div>
+
+<button class="icon-btn" onclick="scrollToLocal()" title="Yerel gazeteler">
+
+<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+
+</button>
+
+</div>
+
+
+
+<div class="close-bar" id="close-bar">
+
+<button onclick="closeBrowser()">
+
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+
+SAYFAYI KAPAT — MENÜYE DÖN
+
+</button>
+
+</div>
+
+</header>
+
+
+
+<!-- ══ TICKER ══ -->
+
+<div class="ticker-wrap">
+
+<div class="ticker-inner" id="ticker">
+
+<span class="ticker-item">🗞️ GAZETEMERKEZİ <span class="ticker-dot"></span></span>
+
+<span class="ticker-item">12 ULUSAL GAZETE <span class="ticker-dot"></span></span>
+
+<span class="ticker-item">İNTERNET HABER KANALLARI <span class="ticker-dot"></span></span>
+
+<span class="ticker-item">81 İL YEREL GAZETE <span class="ticker-dot"></span></span>
+
+<span class="ticker-item">BABA RADYO CANLI YAYIN <span class="ticker-dot"></span></span>
+
+</div>
+
+</div>
+
+
+
+<!-- ══ MAIN CONTENT ══ -->
+
+<div class="container">
+
+
+
+<!-- Stats -->
+
+<div class="stats-row">
+
+<div class="stat-card">
+
+<div class="stat-num">12</div>
+
+<div class="stat-lbl">Ulusal</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-num" id="total-internet">12</div>
+
+<div class="stat-lbl">İnternet & Radyo</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-num">81</div>
+
+<div class="stat-lbl">İl Kapsamı</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-num" id="total-local">—</div>
+
+<div class="stat-lbl">Yerel</div>
+
+</div>
+
+</div>
+
+
+
+<div id="search-results">
+
+<div class="results-count" id="results-count"></div>
+
+<div class="search-grid" id="results-grid"></div>
+
+</div>
+
+
+
+<div id="normal-content">
+
+
+
+<!-- ULUSAL GAZETELER -->
+
+<div class="section-head">
+
+<span class="pill">ULUSAL</span>
+
+<h2>En Çok Okunan 12 Gazete</h2>
+
+<div class="line"></div>
+
+</div>
+
+
+
+<div class="national-grid">
+
+<div class="news-card hurriyet stagger-1" onclick="openNews('https://www.hurriyet.com.tr','Hürriyet')">
+
+<div class="card-logo" style="color:#d32f2f;">📰</div>
+
+<span class="card-name">Hürriyet</span>
+
+</div>
+
+<div class="news-card sozcu stagger-2" onclick="openNews('https://www.sozcu.com.tr','Sözcü')">
+
+<div class="card-logo" style="color:#e53935;">📰</div>
+
+<span class="card-name">Sözcü</span>
+
+</div>
+
+<div class="news-card milliyet stagger-3" onclick="openNews('https://www.milliyet.com.tr','Milliyet')">
+
+<div class="card-logo" style="color:#1565c0;">📰</div>
+
+<span class="card-name">Milliyet</span>
+
+</div>
+
+<div class="news-card sabah stagger-4" onclick="openNews('https://www.sabah.com.tr','Sabah')">
+
+<div class="card-logo" style="color:#f57c00;">📰</div>
+
+<span class="card-name">Sabah</span>
+
+</div>
+
+<div class="news-card cumhuriyet stagger-5" onclick="openNews('https://www.cumhuriyet.com.tr','Cumhuriyet')">
+
+<div class="card-logo" style="color:#b71c1c;">📰</div>
+
+<span class="card-name">Cumhuriyet</span>
+
+</div>
+
+<div class="news-card haberturk stagger-6" onclick="openNews('https://www.haberturk.com','Habertürk')">
+
+<div class="card-logo" style="font-size:16px;font-weight:900;color:#1a237e;">HT</div>
+
+<span class="card-name">Habertürk</span>
+
+</div>
+
+<div class="news-card posta stagger-7" onclick="openNews('https://www.posta.com.tr','Posta')">
+
+<div class="card-logo" style="color:#e65100;">📰</div>
+
+<span class="card-name">Posta</span>
+
+</div>
+
+<div class="news-card turkiye stagger-8" onclick="openNews('https://www.turkiyegazetesi.com.tr','Türkiye')">
+
+<div class="card-logo" style="color:#c2185b;">📰</div>
+
+<span class="card-name">Türkiye</span>
+
+</div>
+
+<div class="news-card aksam stagger-9" onclick="openNews('https://www.aksam.com.tr','Akşam')">
+
+<div class="card-logo" style="color:#0277bd;">📰</div>
+
+<span class="card-name">Akşam</span>
+
+</div>
+
+<div class="news-card yenisafak stagger-10" onclick="openNews('https://www.yenisafak.com','Yeni Şafak')">
+
+<div class="card-logo" style="color:#2e7d32;">📰</div>
+
+<span class="card-name">Yeni Şafak</span>
+
+</div>
+
+<div class="news-card karar stagger-11" onclick="openNews('https://www.karar.com','Karar')">
+
+<div class="card-logo" style="font-size:24px;font-weight:900;color:#212121;">K</div>
+
+<span class="card-name">Karar</span>
+
+</div>
+
+<div class="news-card birgun stagger-12" onclick="openNews('https://www.birgun.net','Birgün')">
+
+<div class="card-logo" style="color:#7b1fa2;">📰</div>
+
+<span class="card-name">Birgün</span>
+
+</div>
+
+</div>
+
+
+
+<!-- İNTERNET VE RADYO KANALLARI -->
+
+<div class="section-head">
+
+<span class="pill" style="background:var(--accent4); color:#fff;">İNTERNET & RADYO</span>
+
+<h2>Popüler İnternet Kanalları & Canlı Radyo</h2>
+
+<div class="line"></div>
+
+</div>
+
+
+
+<div class="internet-grid">
+
+<!-- ARTIK EKRENDA GÖRÜNEN BABA RADYO KARTI -->
+
+<div class="news-card babaradyo stagger-1" onclick="startRadio()">
+
+<div class="card-logo">📻</div>
+
+<span class="card-name" style="color:var(--accent); font-weight:800;">Baba Radyo (Canlı)</span>
+
+</div>
+
+
+
+<div class="news-card sondakika stagger-2" onclick="openNews('https://www.sondakika.com','Son Dakika')">
+
+<div class="card-logo">🚨</div>
+
+<span class="card-name">Son Dakika</span>
+
+</div>
+
+<div class="news-card ensonhaber stagger-3" onclick="openNews('https://www.ensonhaber.com','Ensonhaber')">
+
+<div class="card-logo">🔥</div>
+
+<span class="card-name">Ensonhaber</span>
+
+</div>
+
+<div class="news-card ntv stagger-4" onclick="openNews('https://www.ntv.com.tr','NTV Haber')">
+
+<div class="card-logo" style="font-size:18px;font-weight:900;color:#00838f;">NTV</div>
+
+<span class="card-name">NTV Haber</span>
+
+</div>
+
+<div class="news-card cnnturk stagger-5" onclick="openNews('https://www.cnnturk.com','CNN Türk')">
+
+<div class="card-logo" style="font-size:16px;font-weight:900;color:#d50000;">CNN</div>
+
+<span class="card-name">CNN Türk</span>
+
+</div>
+
+<div class="news-card halktv stagger-6" onclick="openNews('https://halktv.com.tr','Halk TV')">
+
+<div class="card-logo" style="font-size:18px;font-weight:900;color:#0277bd;">HXT</div>
+
+<span class="card-name">Halk TV</span>
+
+</div>
+
+<div class="news-card sozcutv stagger-7" onclick="openNews('https://www.tvsozcu.com.tr','Sözcü TV')">
+
+<div class="card-logo" style="font-size:18px;font-weight:900;color:#e53935;">SZC</div>
+
+<span class="card-name">Sözcü TV</span>
+
+</div>
+
+<div class="news-card t24 stagger-8" onclick="openNews('https://t24.com.tr','T24')">
+
+<div class="card-logo" style="font-size:20px;font-weight:900;color:#212121;">T24</div>
+
+<span class="card-name">T24</span>
+
+</div>
+
+<div class="news-card odatv stagger-9" onclick="openNews('https://www.odatv.com','OdaTV')">
+
+<div class="card-logo">👁️</div>
+
+<span class="card-name">OdaTV</span>
+
+</div>
+
+<div class="news-card internethbr stagger-10" onclick="openNews('https://www.internethaber.com','İnternet Haber')">
+
+<div class="card-logo">🌐</div>
+
+<span class="card-name">İnternet Haber</span>
+
+</div>
+
+<div class="news-card gazeteduvar stagger-11" onclick="openNews('https://www.gazeteduvar.com.tr','Gazete Duvar')">
+
+<div class="card-logo">🧱</div>
+
+<span class="card-name">Gazete Duvar</span>
+
+</div>
+
+<div class="news-card indyturk stagger-12" onclick="openNews('https://www.independentturkish.com','Independent Türkçe')">
+
+<div class="card-logo" style="font-size:22px;font-weight:900;color:#37474f;">I</div>
+
+<span class="card-name">Independent</span>
+
+</div>
+
+</div>
+
+
+
+<!-- YEREL -->
+
+<div class="section-head" id="local-section">
+
+<span class="pill" style="background:var(--accent3);color:#0a0a0f;">YEREL</span>
+
+<h2>81 İl Yerel Gazeteler</h2>
+
+<div class="line"></div>
+
+</div>
+
+
+
+<div class="city-panel">
+
+<label>ŞEHİR SEÇİN</label>
+
+<div class="city-select-wrap">
+
+<select id="citySelect" class="city-select" onchange="handleCityChange(this.value)">
+
+<option value="">— Bir şehir seçin —</option>
+
+</select>
+
+<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+
+</div>
+
+<div id="local-grid" class="local-grid">
+
+<div class="empty-state">
+
+<span class="e-icon">🗺️</span>
+
+Yukarıdan bir şehir seçerek yerel gazetelere ulaşın.
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+<!-- BROWSER IFRAME -->
+
+<div id="browser-wrap">
+
+<iframe id="news-iframe" src="" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
+
+</div>
+
+
+
+<script>
+
+const cityData = {
+
+"Adana":[{n:"Adana Masası",u:"https://www.adanamasasi.com",i:"🍊"},{n:"Adana Ses",u:"https://www.adaneses.com",i:"📰"}],
+
+"Adıyaman":[{n:"Adıyaman Güne Bakış",u:"https://www.adiyamangunebakis.com",i:"🗞️"}],
+
+"Afyonkarahisar":[{n:"Afyon Postası",u:"https://www.afyonpostasi.com",i:"📰"}],
+
+"Ağrı":[{n:"Ağrı Söz",u:"https://www.agrisoz.com",i:"🏔️"}],
+
+"Aksaray":[{n:"Aksaray Haberci",u:"https://www.aksarayhaberci.com",i:"📰"}],
+
+"Amasya":[{n:"Amasya Objektif",u:"https://www.amasyaobjektif.com",i:"👁️"}],
+
+"Ankara":[{n:"Ankara Masası",u:"https://www.ankaramasasi.com",i:"🏛️"},{n:"Anayurt Gazetesi",u:"https://www.anayurtgazetesi.com",i:"🗞️"}],
+
+"Antalya":[{n:"Antalya Körfez",u:"https://www.antalyakorfez.com",i:"🌊"},{n:"Akdeniz Manşet",u:"https://www.akdenizmanset.com.tr",i:"☀️"}],
+
+"Ardahan":[{n:"Ardahan Haber",u:"https://www.ardahanhaber.com.tr",i:"🌲"}],
+
+"Artvin":[{n:"Artvin Olay",u:"https://www.artvinolay.com",i:"🍁"}],
+
+"Aydın":[{n:"Aydın Denge",u:"https://www.aydindenge.com.tr",i:"⚖️"},{n:"Aydın Hedef",u:"https://www.aydinhedef.com.tr",i:"🎯"}],
+
+"Balıkesir":[{n:"Balıkesir Merhaba",u:"https://www.merhabahaber.com",i:"📰"}],
+
+"Bartın":[{n:"Bartın Olay",u:"https://www.bartinolay.com",i:"🌊"}],
+
+"Batman":[{n:"Batman Çağdaş",u:"https://www.batmancagdas.com",i:"🛢️"}],
+
+"Bayburt":[{n:"Bayburt Postası",u:"https://www.bayburtpostasi.com.tr",i:"🏰"}],
+
+"Bilecik":[{n:"Bilecik Olay",u:"https://www.bilecikolay.com",i:"🧱"}],
+
+"Bingöl":[{n:"Bingöl Online",u:"https://www.bingolonline.com",i:"🏔️"}],
+
+"Bitlis":[{n:"Bitlis Haber",u:"https://www.bitlishaber.com.tr",i:"🗻"}],
+
+"Bolu":[{n:"Bolu Gündem",u:"https://www.bolugundem.com",i:"🌲"}],
+
+"Burdur":[{n:"Burdur Web",u:"https://www.burdurweb.com",i:"🏛️"}],
+
+"Bursa":[{n:"Bursa Hakimiyet",u:"https://www.bursahakimiyet.com.tr",i:"🟢"},{n:"Olay Gazetesi",u:"https://www.olay.com.tr",i:"🔶"}],
+
+"Çanakkale":[{n:"Çanakkale Olay",u:"https://www.canakkaleolay.com",i:"🎖️"}],
+
+"Çankırı":[{n:"Çankırı Haberci",u:"https://www.cankirihaberci.com",i:"🏹"}],
+
+"Çorum":[{n:"Çorum Hakimiyet",u:"https://www.corumhakimiyet.net",i:"🥣"}],
+
+"Denizli":[{n:"Denizli Haber",u:"https://www.denizlihaber.com",i:"🐓"}],
+
+"Diyarbakır":[{n:"Amida Haber",u:"https://www.amidahaber.com",i:"🏰"},{n:"Güneydoğu Güncel",u:"https://www.guneydoguguncel.com",i:"🗞️"}],
+
+"Düzce":[{n:"Düzce Öncü",u:"https://www.oncurtv.com",i:"📝"}],
+
+"Edirne":[{n:"Edirne Hudut",u:"https://www.hudutgazetesi.com",i:"🕌"}],
+
+"Elazığ":[{n:"Elazığ Son Haber",u:"https://www.elazigsonhaber.com",i:"🦅"}],
+
+"Erzincan":[{n:"Erzincan Net",u:"https://www.erzincannet.com",i:"🏔️"}],
+
+"Erzurum":[{n:"Erzurum Pusula",u:"https://www.gazetepusula.net",i:"❄️"}],
+
+"Eskişehir":[{n:"Eskişehir Sakarya",u:"https://www.sakaryagazetesi.com.tr",i:"🚂"},{n:"222 Haber",u:"https://www.222haber.com",i:"⚡"}],
+
+"Gaziantep":[{n:"Gaziantep 27",u:"https://www.gaziantep27.net",i:"📰"},{n:"Olay Medya",u:"https://www.olaymedya.com",i:"🔥"}],
+
+"Giresun":[{n:"Giresun İleri",u:"https://www.giresunileri.com",i:"🍒"}],
+
+"Gümüşhane":[{n:"Gümüşkoza",u:"https://www.gumuskoza.com.tr",i:"⛏️"}],
+
+"Hakkari":[{n:"Hakkari Objektif",u:"https://www.hakkariobjektifhaber.com",i:"🏔️"}],
+
+"Hatay":[{n:"Hatay Antakya",u:"https://www.antakyagazetesi.com",i:"🌿"}],
+
+"Iğdır":[{n:"Yeşil Iğdır",u:"https://www.yesiligdir.com",i:"🍏"}],
+
+"Isparta":[{n:"Isparta Bomba32",u:"https://www.bomba32.com",i:"🌹"}],
+
+"İstanbul":[{n:"İstanbul Gazetesi",u:"https://www.istanbulgazetesi.com.tr",i:"🏙️"}],
+
+"İzmir":[{n:"Yeni Asır",u:"https://www.yeniasir.com.tr",i:"☀️"},{n:"Ege Telgraf",u:"https://www.egetelgraf.com",i:"⚓"}],
+
+"Kahramanmaraş":[{n:"Maraş Merkez",u:"https://www.marasmerkezhaber.com",i:"🍦"}],
+
+"Karabük":[{n:"Karabük Derin Haber",u:"https://www.karabukderinhaber.com",i:"🏗️"}],
+
+"Karaman":[{n:"Karaman'dan",u:"https://www.karamandan.com",i:"🐑"}],
+
+"Kars":[{n:"Kars Manşet",u:"https://www.karsmanset.com",i:"🏰"}],
+
+"Kastamonu":[{n:"Kastamonu Güncel",u:"https://www.kastamonuguncel.com",i:"🌲"}],
+
+"Kayseri":[{n:"Kayseri Olay",u:"https://www.kayseriolay.com",i:"🗻"},{n:"Kayseri Anadolu",u:"https://www.anadoluhaber.com.tr",i:"🗞️"}],
+
+"Kırıkkale":[{n:"Kırıkkale İl Gazetesi",u:"https://www.ilgazetesi.com.tr",i:"🔧"}],
+
+"Kırklareli":[{n:"Kırklareli Önadım",u:"https://www.onadim.com.tr",i:"🍇"}],
+
+"Kırşehir":[{n:"Kırşehir Çiğdem",u:"https://www.kirsehircigdem.com",i:"🎻"}],
+
+"Kilis":[{n:"Kilis Kent",u:"https://www.kiliskentgazetesi.com",i:"🍇"}],
+
+"Kocaeli":[{n:"Kocaeli Özgür",u:"https://www.ozgurkocaeli.com.tr",i:"⚓"},{n:"Ses Kocaeli",u:"https://www.seskocaeli.com",i:"📣"}],
+
+"Konya":[{n:"Konya Yeni Gün",u:"https://www.yenigunkonya.com",i:"🕌"},{n:"Pusula Haber",u:"https://www.pusulahaber.com.tr",i:"🧭"}],
+
+"Kütahya":[{n:"Kütahya Ekspres",u:"https://www.kutahyaekspres.com",i:"🏺"}],
+
+"Malatya":[{n:"Malatya Haber",u:"https://www.malatyahaber.com",i:"🍑"}],
+
+"Manisa":[{n:"Manisa Haberleri",u:"https://www.manisahaberleri.com",i:"🍇"}],
+
+"Mardin":[{n:"Mardin Life",u:"https://www.mardinlife.com",i:"🕌"}],
+
+"Mersin":[{n:"Mersin Haber",u:"https://www.mersinhaber.com",i:"🌴"}],
+
+"Muğla":[{n:"Muğla Hamle",u:"https://www.hamlegazetesi.com",i:"🌊"}],
+
+"Muş":[{n:"Muş Ovası",u:"https://www.musovasigazetesi.com",i:"🪻"}],
+
+"Nevşehir":[{n:"Nevşehir FİB Haber",u:"https://www.fibhaber.com",i:"🎈"}],
+
+"Niğde":[{n:"Niğde Haber",u:"https://www.nigdehaber.com.tr",i:"🍏"}],
+
+"Ordu":[{n:"Ordu Olay",u:"https://www.orduolay.com",i:"🌰"}],
+
+"Osmaniye":[{n:"Osmaniye Hasret",u:"https://www.osmaniyehasret.com",i:"🥜"}],
+
+"Rize":[{n:"Rize Takip",u:"https://www.rizetakip.com",i:"🌱"}],
+
+"Sakarya":[{n:"Sakarya Yenihaber",u:"https://www.sakaryayenihaber.com",i:"🌾"},{n:"Medyabar",u:"https://www.medyabar.com",i:"🟢"}],
+
+"Samsun":[{n:"Samsun Haber",u:"https://www.samsunhaber.com",i:"⚔️"}],
+
+"Siirt":[{n:"Siirt Mücadele",u:"https://www.siirtmucadele.com",i:"🧄"}],
+
+"Sinop":[{n:"Sinop Pusulası",u:"https://www.sinoppusulasi.com",i:"⚓"}],
+
+"Sivas":[{n:"Sivas Hakikat",u:"https://www.sivashakikat.com",i:"🏰"}],
+
+"Şanlıurfa":[{n:"Urfa Değişim",u:"https://www.urfadegisim.com",i:"🐟"},{n:"Sanliurfa.com",u:"https://www.sanliurfa.com",i:"🌶️"}],
+
+"Şırnak":[{n:"Şırnak Haber",u:"https://www.sirnakhaber.com",i:"🏔️"}],
+
+"Tekirdağ":[{n:"Tekirdağ Yeni Haber",u:"https://www.tekirdagyenihaber.com",i:"🌾"}],
+
+"Tokat":[{n:"Tokat Hürsöz",u:"https://www.tokathursoz.com",i:"🍇"}],
+
+"Trabzon":[{n:"61 Saat",u:"https://www.61saat.com",i:"🌊"},{n:"Trabzon Günebakış",u:"https://www.gunebakis.com.tr",i:"⚽"}],
+
+"Tunceli":[{n:"Tunceli Emek",u:"https://www.tunceliemek.com.tr",i:"🏔️"}],
+
+"Uşak":[{n:"Uşak Gündem",u:"https://www.usaktagundem.com",i:"⚡"},{n:"Uşak Olay",u:"https://www.usakolay.com",i:"📰"},{n:"Uşak Haber",u:"https://www.usakhaber.com",i:"📣"}],
+
+"Van":[{n:"Van Sesi",u:"https://www.vansesigazetesi.com",i:"🐈"}],
+
+"Yalova":[{n:"Yalova Hayat",u:"https://www.yalovahayat.com",i:"🌲"}],
+
+"Yozgat":[{n:"Yozgat Çamlık",u:"https://www.yozgatcamlik.com",i:"🌲"}],
+
+"Zonguldak":[{n:"Zonguldak Pusula",u:"https://www.pusulagazetesi.com.tr",i:"⛏️"}]
+
+};
+
+
+
+const nationalPapers = [
+
+{n:"Hürriyet",u:"https://www.hurriyet.com.tr",i:"📰"},
+
+{n:"Sözcü",u:"https://www.sozcu.com.tr",i:"📰"},
+
+{n:"Milliyet",u:"https://www.milliyet.com.tr",i:"📰"},
+
+{n:"Sabah",u:"https://www.sabah.com.tr",i:"📰"},
+
+{n:"Cumhuriyet",u:"https://www.cumhuriyet.com.tr",i:"📰"},
+
+{n:"Habertürk",u:"https://www.haberturk.com",i:"📰"},
+
+{n:"Posta",u:"https://www.posta.com.tr",i:"📰"},
+
+{n:"Türkiye",u:"https://www.turkiyegazetesi.com.tr",i:"📰"},
+
+{n:"Akşam",u:"https://www.aksam.com.tr",i:"📰"},
+
+{n:"Yeni Şafak",u:"https://www.yenisafak.com",i:"📰"},
+
+{n:"Karar",u:"https://www.karar.com",i:"📰"},
+
+{n:"Birgün",u:"https://www.birgun.net",i:"📰"}
+
+];
+
+
+
+const internetChannels = [
+
+{n:"Baba Radyo",u:"https://www.babaradyo.com/?radio_player=1",i:"📻"},
+
+{n:"Son Dakika",u:"https://www.sondakika.com",i:"🚨"},
+
+{n:"Ensonhaber",u:"https://www.ensonhaber.com",i:"🔥"},
+
+{n:"NTV Haber",u:"https://www.ntv.com.tr",i:"📺"},
+
+{n:"CNN Türk",u:"https://www.cnnturk.com",i:"📺"},
+
+{n:"Halk TV",u:"https://halktv.com.tr",i:"📺"},
+
+{n:"Sözcü TV",u:"https://www.tvsozcu.com.tr",i:"📺"},
+
+{n:"T24",u:"https://t24.com.tr",i:"💻"},
+
+{n:"OdaTV",u:"https://www.odatv.com",i:"👁️"},
+
+{n:"İnternet Haber",u:"https://www.internethaber.com",i:"🌐"},
+
+{n:"Gazete Duvar",u:"https://www.gazeteduvar.com.tr",i:"🧱"},
+
+{n:"Independent Türkçe",u:"https://www.independentturkish.com",i:"📰"}
+
+];
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+
+const sel = document.getElementById('citySelect');
+
+Object.keys(cityData).sort((a,b)=>a.localeCompare(b,'tr')).forEach(city=>{
+
+const o = document.createElement('option');
+
+o.value = city; o.textContent = city;
+
+sel.appendChild(o);
+
+});
+
+
+
+document.getElementById('total-internet').textContent = internetChannels.length;
+
+
+
+let total = 0;
+
+Object.values(cityData).forEach(arr=>total+=arr.length);
+
+document.getElementById('total-local').textContent = total;
+
+
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+});
+
+
+
+/* RADYO ÇALMA VE SUSTURMA KODLARI */
+
+function startRadio() {
+
+const radioIframe = document.getElementById('background-radio-engine');
+
+const stopBtn = document.getElementById('radio-stop-control');
+
+radioIframe.src = "https://www.babaradyo.com/?radio_player=1";
+
+stopBtn.style.display = "flex";
+
+}
+
+
+
+function stopRadio() {
+
+const radioIframe = document.getElementById('background-radio-engine');
+
+const stopBtn = document.getElementById('radio-stop-control');
+
+radioIframe.src = "";
+
+stopBtn.style.display = "none";
+
+}
+
+
+
+function updateClock(){
+
+const now = new Date();
+
+document.getElementById('hdr-time').textContent =
+
+now.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+document.getElementById('hdr-date').textContent =
+
+now.toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
+
+}
+
+
+
+function toggleTheme(){
+
+const html = document.documentElement;
+
+const isDark = html.getAttribute('data-theme')==='dark';
+
+html.setAttribute('data-theme', isDark?'light':'dark');
+
+const btn = document.getElementById('theme-btn');
+
+btn.innerHTML = isDark
+
+? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`
+
+: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+
+}
+
+
+
+function handleCityChange(city){
+
+const grid = document.getElementById('local-grid');
+
+if(!city){
+
+grid.innerHTML = '<div class="empty-state"><span class="e-icon">🗺️</span>Yukarıdan bir şehir seçerek yerel gazetelere ulaşın.</div>';
+
+return;
+
+}
+
+grid.innerHTML='';
+
+const colors=['yerel-a','yerel-b','yerel-c','yerel-d'];
+
+cityData[city].forEach((p,i)=>{
+
+const card = document.createElement('div');
+
+card.className = `news-card ${colors[i%4]}`;
+
+card.style.animationDelay = (i*0.07)+'s';
+
+card.style.animation = 'fadeUp .35s ease both';
+
+card.onclick = ()=>openNews(p.u, p.n);
+
+card.innerHTML = `<div class="card-logo">${p.i}</div><span class="card-name">${p.n}</span>`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+
+
+function handleSearch(q){
+
+const sr = document.getElementById('search-results');
+
+const nc = document.getElementById('normal-content');
+
+const grid = document.getElementById('results-grid');
+
+const count = document.getElementById('results-count');
+
+
+
+if(!q.trim()){
+
+sr.style.display='none';
+
+nc.style.display='block';
+
+return;
+
+}
+
+sr.style.display='block';
+
+nc.style.display='none';
+
+grid.innerHTML='';
+
+
+
+const term = q.toLowerCase().replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
+
+.replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c');
+
+
+
+let results=[];
+
+
+
+nationalPapers.forEach(p=>{
+
+const t = p.n.toLowerCase().replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
+
+.replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c');
+
+if(t.includes(term)) results.push({...p, tag:'Ulusal'});
+
+});
+
+
+
+internetChannels.forEach(p=>{
+
+const t = p.n.toLowerCase().replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
+
+.replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c');
+
+if(t.includes(term)) results.push({...p, tag:'İnternet'});
+
+});
+
+
+
+Object.entries(cityData).forEach(([city,papers])=>{
+
+const ct = city.toLowerCase().replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
+
+.replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c');
+
+papers.forEach(p=>{
+
+const pt = p.n.toLowerCase().replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
+
+.replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c');
+
+if(ct.includes(term)||pt.includes(term)) results.push({n:p.n,u:p.u,i:p.i,tag:city});
+
+});
+
+});
+
+
+
+if(results.length===0){
+
+grid.innerHTML = `<div class="no-results" style="grid-column:span 3">Sonuç bulunamadı 😔</div>`;
+
+count.textContent='0 sonuç';
+
+return;
+
+}
+
+count.textContent = results.length+' sonuç bulundu';
+
+const colors=['yerel-a','yerel-b','yerel-c','yerel-d','hurriyet','sozcu','milliyet','aksam'];
+
+results.forEach((p,i)=>{
+
+const card = document.createElement('div');
+
+card.className = `news-card ${colors[i%8]}`;
+
+card.style.animationDelay=(i*0.05)+'s';
+
+card.style.animation='fadeUp .3s ease both';
+
+
+if(p.n === "Baba Radyo") {
+
+card.onclick = () => startRadio();
+
+} else {
+
+card.onclick = () => openNews(p.u,p.n);
+
+}
+
+
+card.innerHTML = `
+
+<div class="card-logo">${p.i}</div>
+
+<span class="card-name">${p.n}</span>
+
+<span style="font-size:10px;opacity:.7;font-weight:600;letter-spacing:1px;text-transform:uppercase;">${p.tag}</span>`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+
+
+function openNews(url, title){
+
+document.getElementById('news-iframe').src = url;
+
+document.getElementById('browser-wrap').style.display = 'block';
+
+document.getElementById('close-bar').style.display = 'block';
+
+document.body.style.overflow = 'hidden';
+
+}
+
+
+
+function closeBrowser(){
+
+document.getElementById('news-iframe').src = '';
+
+document.getElementById('browser-wrap').style.display = 'none';
+
+document.getElementById('close-bar').style.display = 'none';
+
+document.body.style.overflow = '';
+
+}
+
+
+
+function scrollToLocal(){
+
+document.getElementById('local-section').scrollIntoView({behavior:'smooth'});
+
+}
+
+</script>
+
+</body>
+
+</html>
+
