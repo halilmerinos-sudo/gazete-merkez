@@ -96,8 +96,20 @@
             border-bottom:1px solid var(--border2);
             padding: env(safe-area-inset-top,0) 20px 0;
             display:flex;flex-direction:column;justify-content:center;gap:10px;
+            transition: height 0.2s ease, padding 0.2s ease;
         }
         [data-theme="light"] .fixed-header{background:rgba(240,239,245,0.88);}
+
+        /* BROWSER AÇIKKEN HEADER'I KÜÇÜLTEN SINIF */
+        .fixed-header.browser-active {
+            height: 45px;
+            padding: 0 10px;
+            justify-content: center;
+        }
+        .fixed-header.browser-active .header-top,
+        .fixed-header.browser-active div:nth-child(2) {
+            display: none !important; /* Gazete açıkken üstteki her şeyi gizle */
+        }
 
         .header-top{
             display:flex;justify-content:space-between;align-items:center;
@@ -161,14 +173,15 @@
         .close-bar{
             display:none;
             animation:slideDown .25s ease;
+            width: 100%;
         }
         @keyframes slideDown{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
         .close-bar button{
-            width:100%;padding:10px;
+            width:100%;padding:6px 12px;
             background:linear-gradient(90deg,var(--red),#cc2222);
-            color:#fff;border:none;border-radius:var(--radius-sm);
-            font-weight:700;font-size:13px;letter-spacing:.5px;
-            cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+            color:#fff;border:none;border-radius:8px;
+            font-weight:700;font-size:12px;letter-spacing:.5px;
+            cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
             transition:opacity .2s;
         }
         .close-bar button:active{opacity:.8;}
@@ -226,7 +239,7 @@
             .national-grid, .internet-grid{grid-template-columns:repeat(2,1fr);}
         }
 
-        /* ─── NEWSPAPER & RADIO CARD (BUZLU SAYDAM EFEKTİ) ─── */
+        /* ─── NEWSPAPER & RADIO CARD ─── */
         .news-card{
             position:relative;overflow:hidden;
             border-radius:var(--radius);
@@ -234,21 +247,19 @@
             display:flex;flex-direction:column;align-items:center;gap:11px;
             cursor:pointer;
             border:1px solid var(--border);
-            /* Arka plan resimlerini ve gradyanlarını buraya tanımlayacağız */
             background-size: cover;
             background-position: center;
             transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
             animation:fadeUp .35s ease both;
         }
-        /* Buzlanma Efekti Uygulayan Sahte Öğe */
         .news-card::before{
             content:'';
             position:absolute;inset:0;
-            background: inherit; /* Arka planı karttan miras al */
-            filter: blur(10px); /* Buzlandırma yoğunluğunu ayarla */
-            opacity: 0.8; /* Saydamlık */
+            background: inherit;
+            filter: blur(10px);
+            opacity: 0.8;
             z-index: 0;
-            transform: scale(1.1); /* Çevredeki sızıntıyı önlemek için */
+            transform: scale(1.1);
         }
         .news-card:hover{
             transform:translateY(-4px) scale(1.02);
@@ -279,8 +290,6 @@
         }
 
         /* ─── MENÜ GÖRSELLERİ İÇİN BUZLU SAYDAM STİLLERİ ─── */
-
-        /* Ulusal Gazeteler - Şehir Manzaraları */
         .hurriyet { background-image: linear-gradient(rgba(211, 47, 47, 0.7), rgba(139, 0, 0, 0.7)), url('https://w0.peakpx.com/wallpaper/521/119/HD-wallpaper-istanbul-atatturk-cultural-center-bosphorus-bridge-turkey.jpg'); }
         .sozcu { background-image: linear-gradient(rgba(229, 57, 53, 0.7), rgba(183, 28, 28, 0.7)), url('https://w0.peakpx.com/wallpaper/931/949/HD-wallpaper-ankara-turkey-city-ataturk-mausoleum.jpg'); }
         .milliyet { background-image: linear-gradient(rgba(21, 101, 192, 0.7), rgba(13, 43, 110, 0.7)), url('https://w0.peakpx.com/wallpaper/384/804/HD-wallpaper-izmir-turkey-seaside-night.jpg'); }
@@ -294,7 +303,6 @@
         .karar { background-image: linear-gradient(rgba(69, 90, 100, 0.7), rgba(28, 43, 51, 0.7)), url('https://w0.peakpx.com/wallpaper/97/993/HD-wallpaper-trabzon-turkey.jpg'); }
         .birgun { background-image: linear-gradient(rgba(123, 31, 162, 0.7), rgba(61, 0, 96, 0.7)), url('https://w0.peakpx.com/wallpaper/842/72/HD-wallpaper-eskishir-turkey.jpg'); }
 
-        /* İnternet Kanalları - Soyut Teknoloji Görselleri */
         .sondakika { background-image: linear-gradient(rgba(204, 0, 0, 0.7), rgba(122, 0, 0, 0.7)), url('https://w0.peakpx.com/wallpaper/32/630/HD-wallpaper-breaking-news-background.jpg'); }
         .ensonhaber { background-image: linear-gradient(rgba(255, 61, 0, 0.7), rgba(178, 42, 0, 0.7)), url('https://w0.peakpx.com/wallpaper/13/466/HD-wallpaper-news-update.jpg'); }
         .ntv { background-image: linear-gradient(rgba(0, 131, 143, 0.7), rgba(0, 86, 98, 0.7)), url('https://w0.peakpx.com/wallpaper/995/1012/HD-wallpaper-studio-background.jpg'); }
@@ -307,18 +315,15 @@
         .gazeteduvar { background-image: linear-gradient(rgba(78, 52, 46, 0.7), rgba(55, 34, 30, 0.7)), url('https://w0.peakpx.com/wallpaper/52/1000/HD-wallpaper-brick-wall.jpg'); }
         .indyturk { background-image: linear-gradient(rgba(55, 71, 79, 0.7), rgba(33, 39, 42, 0.7)), url('https://w0.peakpx.com/wallpaper/633/212/HD-wallpaper-microphone.jpg'); }
 
-        /* Radyo Kartı - Müzik/Radyo Görseli */
         .babaradyo {
             background-image: linear-gradient(rgba(80, 17, 168, 0.7), rgba(31, 94, 194, 0.7)), url('https://w0.peakpx.com/wallpaper/511/987/HD-wallpaper-microphone-on-stage.jpg');
             border: 2px solid var(--accent) !important;
         }
 
-        /* Yerel Gazeteler - Şehir Manzaraları */
         .yerel-a { background-image: linear-gradient(rgba(0, 121, 107, 0.7), rgba(0, 53, 51, 0.7)), url('https://w0.peakpx.com/wallpaper/363/30/HD-wallpaper-cityscape-sunset-abstract.jpg'); }
         .yerel-b { background-image: linear-gradient(rgba(230, 74, 25, 0.7), rgba(93, 26, 0, 0.7)), url('https://w0.peakpx.com/wallpaper/1004/249/HD-wallpaper-building-at-night.jpg'); }
         .yerel-c { background-image: linear-gradient(rgba(94, 53, 177, 0.7), rgba(38, 13, 84, 0.7)), url('https://w0.peakpx.com/wallpaper/705/185/HD-wallpaper-city-lights-at-night.jpg'); }
         .yerel-d { background-image: linear-gradient(rgba(21, 101, 192, 0.7), rgba(6, 35, 84, 0.7)), url('https://w0.peakpx.com/wallpaper/520/120/HD-wallpaper-skyscraper.jpg'); }
-
 
         .city-panel{
             background:var(--surface);
@@ -383,10 +388,12 @@
         }
         @media(min-width:500px){#search-results .search-grid{grid-template-columns:repeat(3,1fr);}}
 
+        /* BROWSER ALANI YENİDEN DÜZENLENDİ */
         #browser-wrap{
             display:none;
             position:fixed;
-            top:var(--header-h);left:0;right:0;
+            top:45px; /* Üstteki buton alanı kadar boşluk bırakır, tam ekrana yakındır */
+            left:0;right:0;
             bottom:0;z-index:9998;
             background:var(--bg);
             animation:fadeIn .2s ease;
@@ -445,18 +452,15 @@
 </head>
 <body>
 
-<!-- GİZLİ SES MOTORU -->
 <iframe id="background-radio-engine" src="" allow="autoplay"></iframe>
 
-<!-- ══ FIXED HEADER ══ -->
-<header class="fixed-header">
+<header class="fixed-header" id="main-header">
     <div class="header-top">
         <div class="brand">
             <span class="brand-title">GAZETEMERKEZİ</span>
             <span class="brand-sub">81 İl & İnternet</span>
         </div>
         <div class="header-controls">
-            <!-- Radyo Kapatma Düğmesi -->
             <button id="radio-stop-control" class="radio-status-btn" onclick="stopRadio()">
                 <span>🛑 Radyoyu Sustur</span>
             </button>
@@ -484,13 +488,12 @@
 
     <div class="close-bar" id="close-bar">
         <button onclick="closeBrowser()">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            SAYFAYI KAPAT — MENÜYE DÖN
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            ANA EKRANA DÖN
         </button>
     </div>
 </header>
 
-<!-- ══ TICKER ══ -->
 <div class="ticker-wrap">
     <div class="ticker-inner" id="ticker">
         <span class="ticker-item">🗞️ GAZETEMERKEZİ <span class="ticker-dot"></span></span>
@@ -501,10 +504,8 @@
     </div>
 </div>
 
-<!-- ══ MAIN CONTENT ══ -->
 <div class="container">
 
-    <!-- Stats -->
     <div class="stats-row">
         <div class="stat-card">
             <div class="stat-num">12</div>
@@ -531,7 +532,6 @@
 
     <div id="normal-content">
 
-        <!-- ULUSAL GAZETELER -->
         <div class="section-head">
             <span class="pill">ULUSAL</span>
             <h2>En Çok Okunan 12 Gazete</h2>
@@ -589,7 +589,6 @@
             </div>
         </div>
 
-        <!-- İNTERNET VE RADYO KANALLARI -->
         <div class="section-head">
             <span class="pill" style="background:var(--accent4); color:#fff;">İNTERNET & RADYO</span>
             <h2>Popüler İnternet Kanalları & Canlı Radyo</h2>
@@ -597,18 +596,16 @@
         </div>
 
         <div class="internet-grid">
-            <!-- ARTIK EKRENDA GÖRÜNEN BABA RADYO KARTI -->
             <div class="news-card babaradyo stagger-1" onclick="startRadio()">
                 <div class="card-logo">📻</div>
                 <span class="card-name" style="color:var(--accent); font-weight:800;">Baba Radyo (Canlı)</span>
             </div>
-
             <div class="news-card sondakika stagger-2" onclick="openNews('https://www.sondakika.com','Son Dakika')">
                 <div class="card-logo">🚨</div>
                 <span class="card-name">Son Dakika</span>
             </div>
             <div class="news-card ensonhaber stagger-3" onclick="openNews('https://www.ensonhaber.com','Ensonhaber')">
-                <div class="card-logo">🔥</div>
+                <div class="card-logo" style="color:#ff3d00">🔥</div>
                 <span class="card-name">Ensonhaber</span>
             </div>
             <div class="news-card ntv stagger-4" onclick="openNews('https://www.ntv.com.tr','NTV Haber')">
@@ -649,7 +646,6 @@
             </div>
         </div>
 
-        <!-- YEREL -->
         <div class="section-head" id="local-section">
             <span class="pill" style="background:var(--accent3);color:#0a0a0f;">YEREL</span>
             <h2>81 İl Yerel Gazeteler</h2>
@@ -675,7 +671,6 @@
     </div>
 </div>
 
-<!-- BROWSER IFRAME -->
 <div id="browser-wrap">
     <iframe id="news-iframe" src="" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
 </div>
@@ -813,7 +808,6 @@
         setInterval(updateClock,1000);
     });
 
-    /* RADYO ÇALMA VE SUSTURMA KODLARI */
     function startRadio() {
         const radioIframe = document.getElementById('background-radio-engine');
         const stopBtn = document.getElementById('radio-stop-control');
@@ -934,10 +928,12 @@
         });
     }
 
+    /* DİNAMİK HEADER KÜÇÜLTME FONKSİYONLARI */
     function openNews(url, title){
         document.getElementById('news-iframe').src = url;
         document.getElementById('browser-wrap').style.display = 'block';
         document.getElementById('close-bar').style.display = 'block';
+        document.getElementById('main-header').classList.add('browser-active'); // Üst paneli küçült
         document.body.style.overflow = 'hidden';
     }
 
@@ -945,6 +941,7 @@
         document.getElementById('news-iframe').src = '';
         document.getElementById('browser-wrap').style.display = 'none';
         document.getElementById('close-bar').style.display = 'none';
+        document.getElementById('main-header').classList.remove('browser-active'); // Üst paneli eski haline getir
         document.body.style.overflow = '';
     }
 
@@ -954,3 +951,4 @@
 </script>
 </body>
 </html>
+
